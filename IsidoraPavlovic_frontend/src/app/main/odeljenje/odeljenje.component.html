@@ -1,0 +1,74 @@
+<mat-toolbar class="naslov">
+    <span class="title-center">Odeljenje</span>
+  </mat-toolbar>
+  
+  <div class="container mat-elavation-z8">
+    <div class="filter-field" style="background-color: pink !important;">
+      <mat-form-field subscriptSizing="dynamic" class="searchbar">
+        <input matInput placeholder="PRETRAZI" name="filterField" (keyup)="applyFilter($event)"/>
+      </mat-form-field>
+    </div>
+
+    <mat-table [dataSource]="dataSource" class="red1">
+  
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="lokacija">
+        <mat-header-cell *matHeaderCellDef>Lokacija</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.lokacija }}</mat-cell>
+      </ng-container>
+  
+      
+      <ng-container matColumnDef="naziv">
+        <mat-header-cell *matHeaderCellDef>Naziv</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.naziv }}</mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="bolnica">
+        <mat-header-cell *matHeaderCellDef>Bolnica</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.bolnica.naziv }}</mat-cell>
+      </ng-container>
+
+      <!-- Action Buttons -->
+   <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>
+      <button mat-icon-button color="accent" (click)="openDialog(1)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row; let i = index">
+      <button mat-icon-button color="primary" (click)="openDialog(2, row.id, row.naziv,
+      row.lokacija, row.bolnica)">
+        <mat-icon color="accent" aria-label="Edit">edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="openDialog(3, row.id, row.naziv,
+      row.lokacija, row.bolnica)">
+        <mat-icon color= "warn" aria-label="Delete">delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    style="cursor: pointer;"
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="selectRow(row)">
+  </mat-row>
+</mat-table>
+
+
+<mat-paginator [length]="20" [pageSize]="5" [pageSizeOptions]="[3,6,9,12]" style="background-color: palevioletred; font-weight: 900;">
+</mat-paginator>
+</div>
+
+<div class="container mat-elevation-z8">
+  <app-pacijent *ngIf="parentSelectedOdeljenje"
+  [childSelectedOdeljenje]="parentSelectedOdeljenje">
+  </app-pacijent>
+</div>
+     
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e7008a" fill-opacity="1" d="M0,160L34.3,176C68.6,192,137,224,206,197.3C274.3,171,343,85,411,80C480,75,549,149,617,181.3C685.7,213,754,203,823,181.3C891.4,160,960,128,1029,101.3C1097.1,75,1166,53,1234,53.3C1302.9,53,1371,75,1406,85.3L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>

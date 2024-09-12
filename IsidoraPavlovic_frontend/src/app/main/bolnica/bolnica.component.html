@@ -1,0 +1,57 @@
+<mat-toolbar class="naslov">
+    <span class="title-center"> Bolnica </span>
+  </mat-toolbar>
+  
+  <div class="container mat-elavation-z8">
+
+    <div class="filter-field" style="background-color: pink !important;">
+      <mat-form-field subscriptSizing="dynamic" class="searchbar">
+        <input matInput placeholder="PRETRAŽI" (keyup)="applyFilter($event)"/>
+      </mat-form-field>
+    </div>
+
+    <mat-table [dataSource]="dataSource" class="red1" >
+      <ng-container matColumnDef="naziv">
+        <mat-header-cell *matHeaderCellDef> Naziv </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.naziv}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="adresa">
+        <mat-header-cell *matHeaderCellDef> Adresa </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.adresa}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="budzet">
+        <mat-header-cell *matHeaderCellDef> Budzet </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.budzet}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-icon-button color="accent" (click)="openDialog(1)">
+            <mat-icon>add</mat-icon>
+          </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index">
+          <button mat-icon-button color="accent" (click)="openDialog(2, row.id, row.naziv, row.budzet)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="openDialog(3, row.id, row.naziv, row.budzet)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"> </mat-header-row>
+      <mat-row style="cursos: pointer;" *matRowDef="let row; columns: displayedColumns"> </mat-row>
+    </mat-table>
+
+    <mat-paginator [length]="20" [pageSize]="5" [pageSizeOptions]="[3,6,9,12]" style="background-color: palevioletred; font-weight: 900;">
+    </mat-paginator>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#e7008a" fill-opacity="1" d="M0,160L34.3,149.3C68.6,139,137,117,206,106.7C274.3,96,343,96,411,117.3C480,139,549,181,617,202.7C685.7,224,754,224,823,202.7C891.4,181,960,139,1029,138.7C1097.1,139,1166,181,1234,186.7C1302.9,192,1371,160,1406,144L1440,128L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
